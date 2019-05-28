@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination" style="background-color:rgb(167, 151, 238);">
+    &nbsp;
+      {% if posts.has_previous %}
+      <li class="page-item" style="font-family:cursive;"><a class="page-link" href="?page=1">First</a></li>
+      <li class="page-item" style="font-family:cursive;"><a class="page-link" href="?page={{posts.previous_page_number}}">Previous</a></li>
+      {% endif %}
+      
+      {% for num in posts.paginator.page_range %}
+        {% ifequal num posts.number %}
+        <li class="active" style="font-family:cursive;"><a class="page-link" style="color: gray;" href="?page={{ num }}" disabled>{{ num }}<span class="sr-only">{{num}}</span></a></li>
+        {% else %}
+        <li style="font-family:cursive;"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+        {% endifequal %}
+      {% endfor %}
+      {% if posts.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{posts.next_page_number}}">Next</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{posts.paginator.num_pages}}">Last</a></li>
+      {% endif %}
+    </ul>
+</nav>
+<head>
+        <meta charset="utf-8"/>
+        <title>Daum 지도 시작하기</title>
+    </head>
+    
+        <center>
+        <div id="map" style="width:920px;height:300px;"></div>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=25f726148d79165f52eabc19849f7f9f"></script>
+    </center>
+        <script>
+            var container = document.getElementById('map');
+            var options = {
+                center: new daum.maps.LatLng(37.6030873,127.0405848),
+                level: 3
+            };
+    
+            var map = new daum.maps.Map(container, options);
+            var markerPosition  = new daum.maps.LatLng(37.6030873,127.0405848); 
+
+// 마커를 생성합니다
+var marker = new daum.maps.Marker({
+    position: markerPosition
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);
+
+        </script>
+        
+    <br>
+   
+    <section id="content">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row">
+                            {% for p in posts %}
+                                <div class="col-lg-3">
+                                    <div class="box">
+                                        <a href="{% url 'detail' p.id %}">
+                                        <div class="box-gray aligncenter">
+                                            <img src="{{p.image}}" width="100%" height="255"/>
+                                            <h4><b> {{p.title}}</b></h4>
+                                            <p>
+                                                {{p.description}}
+                                               
+                                            </p>
+                                            <p>
+                                                {{p.date}}  
+                                            </p>
+                                            <p>
+                                                {{p.user}}  
+                                            </p>
+                                        </div>
+                                        </a>
+                                        
+                                    </div>
+                                </div>
+                            
+                            {% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+ {% endblock %}
+
+ 

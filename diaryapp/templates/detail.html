@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+{{blog.title}}<br>
+{{blog.description}}<br>
+<img src="{{blog.image}}"  height="255"/><br>
+{{blog.date}}<br>
+{{blog.user}}<br>
+{% if blog.user == user.username%} 
+
+
+<br><a href="{% url 'edit' blog.id %}">수정</a><nbsp>
+<a href="{% url 'delete' blog.id %}">삭제</a>
+ {% endif %}
+{% endblock %}
