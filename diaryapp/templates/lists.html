@@ -63,7 +63,7 @@ marker.setMap(map);
                                     <div class="box">
                                         <a href="{% url 'detail' p.id %}">
                                         <div class="box-gray aligncenter">
-                                            <img src="{{p.image}}" width="100%" height="255"/>
+                                            <img src="{{p.image_thumbnail.url}}" width="100%" height="255"/>
                                             <h4><b> {{p.title}}</b></h4>
                                             <p>
                                                 {{p.description}}

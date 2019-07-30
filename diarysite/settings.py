@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'imagekit',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'diarysite.urls'
@@ -147,3 +149,6 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1 
 LOGIN_REDIRECT_URL = '/' #로그인 되었을때 어디로 리다이렉션이 될것인지 설정
 
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
